@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_qlo%)3ak(6qz2=&h56o%i+dv1zki&6#p5iro^n+0zjv2*f($8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -125,3 +125,46 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "bookshelf.CustomUser"
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True  # Enable XSS filtering to protect against cross-site scripting attacks
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from MIME-sniffing
+CSRF_COOKIE_SECURE = True  # Ensure CSRF cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Ensure session cookies are only sent over HTTPS
+
+
+#Configuring Django application to support and enforce HTTPS, 
+# protecting the data transmitted between the client and the server. 
+# This includes setting up HTTPS redirects, configuring security-related headers, 
+# and ensuring that your site is served securely.
+
+# Step 1: Configure Django for HTTPS Support
+# Redirect all non-HTTPS requests to HTTPS to ensure secure communication
+SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS: Sets the HTTP Strict Transport Security (HSTS) policy for 1 year, instructing browsers to only access the site via HTTPS.
+SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS: Includes all subdomains in the HSTS policy for added security.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD: Allows preloading of the HSTS policy in browsers for improved security.
+SECURE_HSTS_PRELOAD = True
+
+
+# Step 2: Enforce Secure Cookies
+# SESSION_COOKIE_SECURE: Ensures that session cookies are only sent over HTTPS connections.
+SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE: Ensures that CSRF cookies are only sent over HTTPS connections.
+CSRF_COOKIE_SECURE = True
+
+# Step 3: Implement Secure Headers
+# X_FRAME_OPTIONS: Prevents clickjacking by denying framing of the site.
+X_FRAME_OPTIONS = 'DENY'
+# SECURE_CONTENT_TYPE_NOSNIFF: Prevents browsers from MIME-sniffing a response away from the declared content-type.
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER: Enables the browser’s XSS filtering to help prevent cross-site scripting attacks.
+SECURE_BROWSER_XSS_FILTER = True
+
+
+# Ensure that Django recognizes the original request as secure when behind a proxy
+# SECURE_PROXY_SSL_HEADER: This setting tells Django to look for the HTTP_X_FORWARDED_PROTO header to determine if the request was made over HTTPS. The value 'https' indicates that the request was secure.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
