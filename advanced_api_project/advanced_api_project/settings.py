@@ -1,3 +1,4 @@
+
 """
 Django settings for advanced_api_project project.
 
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vj1^2%tm^^mfo)@m+$j6yz%)3x=ar+-#iyb6)8(y21)@0d8_08'
+SECRET_KEY = 'django-insecure-=japmu(x-y826dyg6ekm1aee&9u2h$w7lq%af_f=k4g0tu498+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
