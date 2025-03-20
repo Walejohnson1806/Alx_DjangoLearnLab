@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                
+                <li><a href="{% url 'blog:home' %}">Home</a></li>
+                <li><a href="{% url 'blog:posts' %}">Blog Posts</a></li>
+                <li><a href="{% url 'blog:login' %}">Login</a></li>
+                <li><a href="{% url 'blog:register' %}">Register</a></li>
+                <li><a href="{% url 'blog:profile' %}">Profile</a></li>
+                <li><a href="{% url 'blog:post_create' %}">Create Post</a></li>
+                <li><a href="{% url 'blog:logout' %}">Logout</a></li>
+                <form method="GET" action="{% url 'blog:search_posts' %}" style="display: inline-block;;">
+                    <input type="search" name="q" placeholder="Search posts..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        <!-- Page-specific content goes here -->
+       <h2>Welcome to Django Blog</h2>
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Django Blog</p>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

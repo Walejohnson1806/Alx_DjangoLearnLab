@@ -1,0 +1,23 @@
+
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+    <form method="GET" action="{% url 'blog:search_posts' %}">
+        <input type="search" name="q" placeholder="Search posts..." required>
+        <button type="submit">Search</button>
+    </form>
+    <h1>Blog Posts:</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }} by {{ post.author }} on {{ post.published_date }}</a>
+            <p class="content">
+             {{ post.content |truncatewords:20 }}
+            </p> 
+        </li>
+        {% endfor %}
+    </ul>
+
+    <button class="btn"><a href="{% url 'blog:home' %}" class="btn-a">Back to Home</a></button>
+</div>
+{% endblock %}
