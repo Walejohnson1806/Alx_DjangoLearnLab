@@ -1,15 +1,15 @@
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, CommentViewSet, FeedViewSet
+from .views import PostViewSet, CommentViewSet, FeedView, like_post, unlike_post
 
 router = DefaultRouter()
-router.register(r'posts', PostViewSet, basename='post')
-router.register('feed/', FeedViewSet, basename='feed')
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('posts/<int:post_pk>/comments/', CommentViewSet.as_view({'get': 'list', 'post': 'create'}), name='comment-list'),
-    path('posts/<int:post_pk>/comments/<int:pk>/', CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='comment-detail'),
-    path('posts/<int:post_pk>/like/<int:pk>/', CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='comment-detail'),
-    path('posts/<int:post_pk>/unlike/<int:pk>/', CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='comment-detail'),
+    path('feed/', FeedView.as_view({'get': 'list'}), name='feed'),
+    path('<int:pk>/like/', like_post, name='like-post'),
+    path('<int:pk>/unlike/', unlike_post, name='unlike-post'),
 ]
